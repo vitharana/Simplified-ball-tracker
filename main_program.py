@@ -2,6 +2,52 @@ from handle_keys import key_press
 from trackbars import get_trackbar_values
 import numpy as np
 
+
+
+
+def draw_illustration(cv2,frame):
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    font_size = 1.2
+
+    if cv2.d_draw_illustration:
+        cv2.putText(frame, f"Initial Point: {cv2.d_initial_coordinate}", (800, 100), font, font_size, (0, 0, 0), 4)
+        cv2.putText(frame, f"Initial Point: {cv2.d_initial_coordinate}", (800, 100), font, font_size, (0, 255, 255), 1)
+
+        cv2.putText(frame, f"Final Point: {cv2.d_final_coordinate}", (800, 150), font, font_size, (0, 0, 0), 4)
+        cv2.putText(frame, f"Final Point: {cv2.d_final_coordinate}", (800, 150), font, font_size, (0, 255, 255), 1)
+
+        cv2.putText(frame, f"Time: {round(cv2.d_ball_time, 4)}", (800, 200), font, font_size, (0, 0, 0), 4)
+        cv2.putText(frame, f"Time: {round(cv2.d_ball_time, 4)}", (800, 200), font, font_size, (0, 255, 255), 1)
+
+        cv2.putText(frame, f"Distance: {round(cv2.d_ball_time, 4)}", (800, 250), font, font_size, (0, 0, 0), 4)
+        cv2.putText(frame, f"Distance: {round(cv2.d_ball_time, 4)}", (800, 250), font, font_size, (0, 255, 255), 1)
+
+
+        cv2.putText(frame, f"Angle: {round(cv2.d_ball_angle, 4)}", (800, 300), font, font_size, (0, 0, 0), 4)
+        cv2.putText(frame, f"Angle: {round(cv2.d_ball_angle, 4)}", (800, 300), font, font_size, (0, 255, 255), 1)
+
+
+        #cv2.putText(img, f"{round(item, 4)}", (1150, 600 - i), font, font_size, (0, 0, 0), 4)
+        #cv2.putText(img, f"{round(item, 4)}", (1150, 600 - i), font, font_size, (0, 255, 255), 1)
+        # add center line
+        #cv2.line(frame, (0, 360), (1280, 360), (0, 177, 0), 2)
+
+
+        cv2.line(frame, cv2.d_initial_coordinate, cv2.d_avg_coordinate, (0, 177, 255), 2)
+        cv2.circle(frame, cv2.d_initial_coordinate, cv2.d_radius_1, (0, 255, 0), 2)
+
+
+        cv2.circle(frame, cv2.d_initial_coordinate, 1, (0, 0, 255), 2)
+
+        cv2.circle(frame, cv2.d_avg_coordinate, cv2.d_radius_2, (0, 255, 0), 2)
+
+        cv2.circle(frame, cv2.d_avg_coordinate, 1, (0, 0, 255), 2)
+
+
+
+
+
+
 def run_main_program(cv2, cap):
 
     radius = 0
@@ -11,6 +57,8 @@ def run_main_program(cv2, cap):
         ret, frame = cap.read()
     except cv2.error as e:
         print(f"An error occurred: {e}")
+
+    draw_illustration(cv2,frame)    
 
     # Get current trackbar positions
 
@@ -74,4 +122,6 @@ def run_main_program(cv2, cap):
     # update the ball data
     cv2.d_radius = radius
     cv2.d_center = center
+
+    
 

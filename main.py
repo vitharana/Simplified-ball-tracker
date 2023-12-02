@@ -10,9 +10,11 @@ cv2.d_radius = 0
 cv2.d_center = (0, 0)
 cv2.d_key = 'no_press'
 cv2.d_hsv_state = False
+cv2.d_data_table_state = False
 cv2.d_avg_coordinate = (0,0)
 cv2.d_ball_mov = True
 cv2.all_data_ok = False
+cv2.d_draw_illustration = True
 
 
 

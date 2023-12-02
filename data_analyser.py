@@ -35,6 +35,9 @@ def run_timer_analyzer(cv2):
 
     cv2.d_ball_time = ball_timer.get_time_lapse(cv2)
 
+    if cv2.d_key == '1':
+        ball_timer.reset_timer()
+
 
 def calculate_values(cv2):
     
@@ -48,7 +51,7 @@ def calculate_values(cv2):
 
     distance = math.sqrt((x_2 - x_1) ** 2 + (y_2 - y_1) ** 2)
 
-    cv2.d_ball_dist = distance
+    
 
     try:
         cv2.d_ball_vel = distance / cv2.d_ball_time
@@ -62,12 +65,21 @@ def calculate_values(cv2):
     except:
         theta = 0
 
+    if cv2.d_final_coordinate  == (-1,-1) and not cv2.d_ball_mov:
+        theta = 0
+
     result_radians = math.asin(theta)
     # Convert radians to degrees if needed
     result_degrees = math.degrees(result_radians)
     cv2.d_ball_angle = result_degrees
 
+    cv2.d_ball_dist = distance
 
+    if cv2.d_final_coordinate == (-1,-1) and not cv2.d_ball_mov:
+        cv2.d_ball_dist = 0
+    
+
+    
 
 
 
@@ -82,7 +94,28 @@ def save_data_point(cv2):
 
     })
 
-    
+def reset_values(cv2):
+    cv2.all_data_ok = False
+    cv2.d_radius = 0
+    #cv2.d_center = (0, 0)
+    #cv2.d_key = 'no_press'
+    #cv2.d_hsv_state = False
+    #cv2.d_data_table_state = False
+    #cv2.d_avg_coordinate = (0,0)
+    #cv2.d_ball_mov = True
+    cv2.all_data_ok = False
+    #cv2.d_initial_coordinate = (-1,-1)
+    cv2.d_final_coordinate = (-1,-1)
+    #cv2.d_radius_1 = 0
+    cv2.d_radius_2 = 0
+    cv2.d_ball_time = 0
+    cv2.d_ball_angle = 0
+    cv2.d_ball_dist = 0
+    cv2.d_ball_vel = 0
+
+
+
+
 
 
 def run_data_analyser(cv2):
@@ -98,15 +131,26 @@ def run_data_analyser(cv2):
         cv2.d_initial_coordinate = cv2.d_avg_coordinate
         cv2.d_radius_1 = cv2.d_radius
 
-    elif cv2.d_initial_coordinate != (-1,-1) and not cv2.d_ball_mov and cv2.d_ball_time > 0.2  :
+        #Reset Values
+        reset_values(cv2)    
+
+
+
+
+    elif cv2.d_initial_coordinate != (-1,-1) and not cv2.d_ball_mov and cv2.d_ball_time > 0.3  :
 
         print("ready for the final coordinate")
         cv2.d_final_coordinate = cv2.d_avg_coordinate
         cv2.d_radius_2 = cv2.d_radius
-        cv2.all_data_ok = True
+        
 
     # aumatically calculate the values
-    calculate_values(cv2)
+    if cv2.d_initial_coordinate != (-1,-1) :
+        calculate_values(cv2)
+
+
+    if cv2.d_initial_coordinate != (-1,-1) and cv2.d_final_coordinate != (-1,-1) and cv2.d_ball_time > 0.3:
+        cv2.all_data_ok = True
     
 
 

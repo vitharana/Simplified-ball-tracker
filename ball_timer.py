@@ -24,10 +24,22 @@ class Measure_Timer:
             return (time() - self.start_time)
         else:
             t = self.stop_time - self.start_time
-            if t > 0.2:
+            if t > 0.3:
                 return t
             else:
                 return 0.0
+            
+    def reset_timer(self):
+
+        self.stop_time = 0
+        self.start_time = 0
+
+
+
+
+        
+
+
 
 
 
