@@ -61,6 +61,8 @@ def load_trackbar_values(cv2):
     cv2.setTrackbarPos("Blur", cv2.Window2_Name_Track_Bars,data['blur'])
     cv2.setTrackbarPos("Radius", cv2.Window2_Name_Track_Bars,data['radius'])
 
+    print("Detection Profile Loaded")
+
 def save_trackbar_values(cv2):
     lower_h, upper_h, lower_s, upper_s, lower_v, upper_v, ker, blur, radius_limit = get_trackbar_values(cv2)
 
@@ -77,3 +79,4 @@ def save_trackbar_values(cv2):
     }
 
     write_custom_values_file(data)
+    print("Detection Profile Save Successful")

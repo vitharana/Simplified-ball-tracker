@@ -26,7 +26,9 @@ def show_data_table(cv2):
 
             ("Ball Distance", round(cv2.d_ball_dist,4)),
             ("Ball Velocity", round(cv2.d_ball_vel,4)),
+
             ("All Data OK", cv2.all_data_ok),
+            ("Data Index", cv2.d_data_point_count),
         ]
 
         # Create a black image with white text

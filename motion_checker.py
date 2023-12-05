@@ -14,29 +14,3 @@ class Motion_Checker:
                 if self.coordinates[i] == self.coordinates[j]:
                     return True
         return False
-
-"""
-
-# Example usage
-store = CoordinateStore()
-
-store.add_coordinate(1, 2)
-store.add_coordinate(3, 4)
-store.add_coordinate(5, 6)
-store.add_coordinate(7, 8)
-store.add_coordinate(1, 2)
-
-# Duplicate check should return False
-print(store.check_duplicate_coordinates())
-
-store.add_coordinate(1, 2)
-
-# Duplicate check should return True
-print(store.check_duplicate_coordinates())
-
-store = CoordinateStore()
-while True:
-    store.add_coordinate(input(),input())
-    print(store.check_duplicate_coordinates())
-
-"""

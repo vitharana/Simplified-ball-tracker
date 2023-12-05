@@ -17,6 +17,12 @@ cv2.all_data_ok = False
 cv2.d_draw_illustration = True
 
 
+# for the data_saver use
+cv2.d_record_data = False
+cv2.d_data_point_count = 0
+cv2.d_data_points = []
+cv2.d_folder_no = 0
+
 
 
 
@@ -30,12 +36,8 @@ cv2.d_ball_angle = 0
 cv2.d_ball_dist = 0
 cv2.d_ball_vel = 0
 
-
-cv2.d_data_points = []
-
-
-
 # create the main window and sets the size
+
 from initialize_opencv import create_main_window
 
 cap = create_main_window(cv2)
@@ -67,7 +69,7 @@ while True:
     run_data_analyser(cv2)
     #print(cv2.d_avg_coordinate, cv2.d_ball_mov, cv2.d_ball_time)
 
-    print(f"current: {cv2.d_avg_coordinate}, initial: {cv2.d_initial_coordinate}, r1: {cv2.d_radius_1}, t1: {cv2.d_ball_time}, final: {cv2.d_final_coordinate}, r2: {cv2.d_radius_2} angle: {cv2.d_ball_angle}, vel: {cv2.d_ball_vel}")
+    #print(f"current: {cv2.d_avg_coordinate}, initial: {cv2.d_initial_coordinate}, r1: {cv2.d_radius_1}, t1: {cv2.d_ball_time}, final: {cv2.d_final_coordinate}, r2: {cv2.d_radius_2} angle: {cv2.d_ball_angle}, vel: {cv2.d_ball_vel}")
 
     #print(cv2.d_data_points if len(cv2.d_data_points) > 0 else "")
 
@@ -79,11 +81,18 @@ while True:
 
     # load saved profile
     elif cv2.d_key == 'l':
-        load_trackbar_values(cv2)
+        try:
+            load_trackbar_values(cv2)
+        except:
+            print("Loading Fail")
 
     # save detection profile
     elif cv2.d_key == 's':
-        save_trackbar_values(cv2)
+        try:
+            save_trackbar_values(cv2)
+
+        except:
+            print("Detection Profile Saving Failed")
 
     show_data_table(cv2)
 
